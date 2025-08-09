@@ -6,7 +6,7 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:49 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/09 20:23:42 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/09 20:43:14 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,22 @@ char	*get_next_line(int fd)
 	return (ret.str);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
 
-	// fd = open("test.txt", O_RDONLY);
-	fd = 1;
-	while (1)
-	{
-		str = get_next_line(fd);
-		if (str == NULL)
-			break ;
-		printf("line :%s", str);
-	}
-	close(fd);
-	return (0);
-}
+// 	// fd = open("test.txt", O_RDONLY);
+// 	fd = 1;
+// 	while (1)
+// 	{
+// 		str = get_next_line(fd);
+// 		if (str == NULL)
+// 			break ;
+// 		printf("line :%s", str);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
