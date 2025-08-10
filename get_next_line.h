@@ -6,7 +6,7 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:53 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/09 19:40:36 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/10 10:07:51 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ typedef struct s_string
 
 char		*get_next_line(int fd);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
-char		*ft_strchr(const char *s, int c);
 
 #endif
