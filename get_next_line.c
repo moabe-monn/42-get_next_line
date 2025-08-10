@@ -6,7 +6,7 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:49 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/10 10:42:15 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/10 16:32:36 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,54 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+// static int	handle_error(t_string *tag)
+// {
+// 	free(tag->str);
+// 	return (-1);
+// }
+
 static int	ft_getc(int fd)
 {
 	static char	buf[BUFFER_SIZE];
 	static char	*bufp;
-	static int	n; //確認
+	static int	n;
 
+	if (n < 0)
+		n = 0;
 	if (n == 0)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
 		bufp = buf;
-	}
-	if (n <= 0)
-	{
 		if (n == 0)
 			return (EOF);
-		else
+		else if (n < 0)
 		{
 			bufp = NULL;
 			return (-2);
 		}
 	}
 	n--;
-	return ((int)*bufp++);
+	if (bufp != NULL)
+		return ((int)*bufp++);
+	return (-2);
 }
 
 static int	ft_putc(t_string *tag, char c)
 {
 	char	*new_str;
+	size_t	new_capa;
 
-	if (tag->len + 1 > tag->capasity)
+	if (tag->len + 1 >= tag->capasity)
 	{
-		new_str = (char *)malloc(tag->capasity * 2);
+		if (tag->capasity == 0)
+			new_capa = 16;
+		else
+			new_capa = tag->capasity * 2;
+		new_str = (char *)malloc(new_capa);
 		if (new_str == NULL)
 			return (-1);
 		ft_memcpy(new_str, tag->str, tag->len);
-		tag->capasity = tag->capasity * 2;
+		tag->capasity = new_capa;
 		free(tag->str);
 		tag->str = new_str;
 	}
@@ -60,40 +72,31 @@ static int	ft_putc(t_string *tag, char c)
 
 static int	read_line(t_string *tag, int fd)
 {
-	char		c;
+	int	c;
 
-	tag->str = (char *)malloc(16);
-	if (tag->str == NULL)
-		return (-1);
-	tag->capasity = 16;
 	while (1)
 	{
 		c = ft_getc(fd);
-		if (c == -2)
-			return (-1);
-		else if (c == EOF)
+		if (c == EOF)
 			break ;
-		if (ft_putc(tag, c) == -1)
+		if (c == -2 || ft_putc(tag, c) == -1)
 			return (-1);
-		else if (c == '\n')
+		if ((char)c == '\n')
 			break ;
 	}
-	// if (tag->len > 0)
-	// 	ft_putc(tag, '\0');
-	ft_putc(tag, '\0');
+	if (tag->len == 0)
+		return (-1);
+	tag->str[tag->len] = '\0';
 	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	
 	t_string	ret;
 	int			value;
 
-	ret.str = NULL;
-	ret.len = 0;
-	ret.capasity = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	ret = (t_string){0};
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	value = read_line(&ret, fd);
 	if (value == -1)
@@ -104,22 +107,23 @@ char	*get_next_line(int fd)
 	return (ret.str);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
 
-	fd = open("test.txt", O_RDONLY);
-	// fd = 1;
-	while (1)
-	{
-		str = get_next_line(fd);
-		if (str == NULL)
-			break ;
-		printf("line :%s", str);
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	// fd = 1;
+// 	while (1)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf("line :%s", str);
+// 		if (str == NULL)
+// 			break ;
+// 		free(str);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
