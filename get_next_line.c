@@ -6,7 +6,7 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:49 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/11 10:58:50 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/11 11:30:13 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*get_next_line(int fd)
 // 	while (1)
 // 	{
 // 		str = get_next_line(fd);
-// 		printf("line :%s", str);
+// 		printf("line :%s\n", str);
 // 		if (str == NULL)
 // 			break ;
 // 		free(str);
