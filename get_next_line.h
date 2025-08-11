@@ -6,7 +6,7 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:53 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/10 10:07:51 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/11 10:44:46 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
 
 typedef struct s_string
 {

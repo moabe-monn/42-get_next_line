@@ -6,13 +6,11 @@
 /*   By: moabe <moabe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 18:09:49 by moabe             #+#    #+#             */
-/*   Updated: 2025/08/10 17:24:59 by moabe            ###   ########.fr       */
+/*   Updated: 2025/08/11 10:58:50 by moabe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 static int	ft_getc(int fd)
 {
@@ -54,10 +52,13 @@ static int	ft_putc(t_string *tag, char c)
 		new_str = (char *)malloc(new_capa);
 		if (new_str == NULL)
 			return (-1);
-		ft_memcpy(new_str, tag->str, tag->len);
-		tag->capasity = new_capa;
-		free(tag->str);
+		if (tag->str != NULL)
+		{
+			ft_memcpy(new_str, tag->str, tag->len);
+			free(tag->str);
+		}
 		tag->str = new_str;
+		tag->capasity = new_capa;
 	}
 	tag->str[tag->len] = c;
 	tag->len++;
@@ -101,23 +102,23 @@ char	*get_next_line(int fd)
 	return (ret.str);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
 
-	fd = open("test.txt", O_RDONLY);
-	// fd = 1;
-	while (1)
-	{
-		str = get_next_line(fd);
-		printf("line :%s", str);
-		if (str == NULL)
-			break ;
-		free(str);
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	// fd = 1;
+// 	while (1)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf("line :%s", str);
+// 		if (str == NULL)
+// 			break ;
+// 		free(str);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
